@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triviaflutterapp/question.dart';
 
 class TriviaPage extends StatefulWidget {
 //  TriviaPage({Key key, this.title}) : super(key: key);
@@ -8,11 +9,16 @@ class TriviaPage extends StatefulWidget {
 }
 
 class _TriviaPageState extends State<TriviaPage> {
-
-  int numberQuestion=0;
+  int numberQuestion = 0;
 
   List<Icon> scoreKeeper = [];
-  List<String> questions = ['Pregunta 1?', 'Pregunta 2?', 'Pregunta 3?','Pregunta 4?','Pregunta 5?'];
+
+  List<Question> questionBank = [
+    Question(q: 'pregunta 1?', a: true),
+    Question(q: 'pregunta 2?', a: true),
+    Question(q: 'pregunta 3?', a: false),
+    Question(q: 'pregunta 4?', a: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class _TriviaPageState extends State<TriviaPage> {
                       children: scoreKeeper,
                     ),
                     Text(
-                      questions[numberQuestion],
+                      questionBank[numberQuestion].q,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -51,58 +57,54 @@ class _TriviaPageState extends State<TriviaPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-
                     FlatButton(
                       onPressed: () {
-                        setState(() {
+                        bool correctAnswer = questionBank[numberQuestion].a;
+                        if (correctAnswer == true) {
                           scoreKeeper.add(Icon(
                             Icons.check,
                             color: Colors.green,
                           ));
-                          numberQuestion++;
-                        }
-                        );
-                      },
-                      child: Text('1'),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        setState(() {
+                        } else {
                           scoreKeeper.add(Icon(
                             Icons.clear,
                             color: Colors.red,
                           ));
-                          numberQuestion++;
                         }
-                        );
-                      },
-                      child: Text('2'),
-                    ),
 
+                        setState(() {
+                          numberQuestion++;
+                        });
+                      },
+                      child: Text('true'),
+                    ),
                     FlatButton(
                       onPressed: () {
-                        setState(() {
+                        bool correctAnswer = questionBank[numberQuestion].a;
+                        if (correctAnswer == false) {
                           scoreKeeper.add(Icon(
                             Icons.check,
                             color: Colors.green,
                           ));
-                          numberQuestion++;
+                        } else {
+                          scoreKeeper.add(Icon(
+                            Icons.clear,
+                            color: Colors.red,
+                          ));
                         }
-                        );
+
+                        setState(() {
+                          numberQuestion++;
+                        });
                       },
+                      child: Text('false'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
                       child: Text('3'),
                     ),
                     FlatButton(
-                      onPressed: () {
-                        setState(() {
-                          scoreKeeper.add(Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                          ));
-                          numberQuestion++;
-                        }
-                        );
-                      },
+                      onPressed: () {},
                       child: Text('4'),
                     ),
                   ],
