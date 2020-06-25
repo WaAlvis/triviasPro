@@ -1,8 +1,10 @@
+
 class Question {
+
 
   String q;
   bool a;
 
-  Question ({this.q, this.a});
+  Question (this.q, this.a);
 
 }

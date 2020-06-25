@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:triviaflutterapp/question.dart';
+import 'question_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 class TriviaPage extends StatefulWidget {
 //  TriviaPage({Key key, this.title}) : super(key: key);
@@ -12,13 +14,6 @@ class _TriviaPageState extends State<TriviaPage> {
   int numberQuestion = 0;
 
   List<Icon> scoreKeeper = [];
-
-  List<Question> questionBank = [
-    Question(q: 'pregunta 1?', a: true),
-    Question(q: 'pregunta 2?', a: true),
-    Question(q: 'pregunta 3?', a: false),
-    Question(q: 'pregunta 4?', a: false),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +33,7 @@ class _TriviaPageState extends State<TriviaPage> {
                       children: scoreKeeper,
                     ),
                     Text(
-                      questionBank[numberQuestion].q,
+                      quizBrain.questionBank[numberQuestion].q,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -59,7 +54,7 @@ class _TriviaPageState extends State<TriviaPage> {
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {
-                        bool correctAnswer = questionBank[numberQuestion].a;
+                        bool correctAnswer = quizBrain.questionBank[numberQuestion].a;
                         if (correctAnswer == true) {
                           scoreKeeper.add(Icon(
                             Icons.check,
@@ -80,7 +75,7 @@ class _TriviaPageState extends State<TriviaPage> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        bool correctAnswer = questionBank[numberQuestion].a;
+                        bool correctAnswer = quizBrain.questionBank[numberQuestion].a;
                         if (correctAnswer == false) {
                           scoreKeeper.add(Icon(
                             Icons.check,
@@ -98,14 +93,6 @@ class _TriviaPageState extends State<TriviaPage> {
                         });
                       },
                       child: Text('false'),
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text('3'),
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text('4'),
                     ),
                   ],
                 ),
