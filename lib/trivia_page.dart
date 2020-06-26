@@ -11,7 +11,7 @@ class TriviaPage extends StatefulWidget {
 }
 
 class _TriviaPageState extends State<TriviaPage> {
-  int numberQuestion = 0;
+
 
   List<Icon> scoreKeeper = [];
 
@@ -33,7 +33,7 @@ class _TriviaPageState extends State<TriviaPage> {
                       children: scoreKeeper,
                     ),
                     Text(
-                      quizBrain.questionBank[numberQuestion].q,
+                      quizBrain.getQuestionText(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -54,7 +54,7 @@ class _TriviaPageState extends State<TriviaPage> {
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {
-                        bool correctAnswer = quizBrain.questionBank[numberQuestion].a;
+                        bool correctAnswer = quizBrain.getAnswer();
                         if (correctAnswer == true) {
                           scoreKeeper.add(Icon(
                             Icons.check,
@@ -68,14 +68,14 @@ class _TriviaPageState extends State<TriviaPage> {
                         }
 
                         setState(() {
-                          numberQuestion++;
+                          quizBrain.nextQuestion();
                         });
                       },
                       child: Text('true'),
                     ),
                     FlatButton(
                       onPressed: () {
-                        bool correctAnswer = quizBrain.questionBank[numberQuestion].a;
+                        bool correctAnswer = quizBrain.getAnswer();
                         if (correctAnswer == false) {
                           scoreKeeper.add(Icon(
                             Icons.check,
@@ -89,7 +89,7 @@ class _TriviaPageState extends State<TriviaPage> {
                         }
 
                         setState(() {
-                          numberQuestion++;
+                          quizBrain.nextQuestion();
                         });
                       },
                       child: Text('false'),
