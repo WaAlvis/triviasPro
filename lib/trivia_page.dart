@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'question_brain.dart';
 
 QuizBrain quizBrain = QuizBrain();
@@ -11,9 +12,26 @@ class TriviaPage extends StatefulWidget {
 }
 
 class _TriviaPageState extends State<TriviaPage> {
-
-
   List<Icon> scoreKeeper = [];
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getAnswer();
+    if (correctAnswer == userPickedAnswer) {
+      scoreKeeper.add(Icon(
+        Icons.check,
+        color: Colors.green,
+      ));
+    } else {
+      scoreKeeper.add(Icon(
+        Icons.clear,
+        color: Colors.red,
+      ));
+
+      setState(() {
+        quizBrain.nextQuestion();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,46 +71,17 @@ class _TriviaPageState extends State<TriviaPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () {
-                        bool correctAnswer = quizBrain.getAnswer();
-                        if (correctAnswer == true) {
-                          scoreKeeper.add(Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ));
-                        } else {
-                          scoreKeeper.add(Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                          ));
-                        }
-
-                        setState(() {
-                          quizBrain.nextQuestion();
-                        });
-                      },
                       child: Text('true'),
+                      onPressed: () {
+                        checkAnswer(true);
+
+                      },
                     ),
                     FlatButton(
-                      onPressed: () {
-                        bool correctAnswer = quizBrain.getAnswer();
-                        if (correctAnswer == false) {
-                          scoreKeeper.add(Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ));
-                        } else {
-                          scoreKeeper.add(Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                          ));
-                        }
-
-                        setState(() {
-                          quizBrain.nextQuestion();
-                        });
-                      },
                       child: Text('false'),
+                      onPressed: () {
+                        checkAnswer(false);
+                      },
                     ),
                   ],
                 ),
